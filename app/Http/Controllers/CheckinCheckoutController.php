@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\CheckinCheckout;
 use App\User;
+use App\CheckinCheckout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class CheckinCheckoutController extends Controller
+class CheckInCheckOutController extends Controller
 {
-    public function checkInCheckOut()
-    {
+    public function checkinCheckOut(){
         $hash_value = Hash::make(date('Y-m-d'));
         return view('checkin_checkout', compact('hash_value'));
     }
 
-    public function checkInCheckOutStore(Request $request)
+    public function checkin(Request $request)
     {
         if(now()->format('D') == 'Sat' || now()->format('D') == 'Sun'){
             return [

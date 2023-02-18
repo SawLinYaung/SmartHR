@@ -50,8 +50,13 @@ class MyAttendanceController extends Controller
 
         $employees = User::orderBy('employee_id')->where('id', auth()->user()->id)->get();
         $company_setting = CompanySetting::findOrFail(1);
+
         $periods = new CarbonPeriod($startOfMonth, $endOfMonth);
         $attendances = CheckinCheckout::whereMonth('date', $month)->whereYear('date', $year)->get();
-        return view('components.attendance_overview_table', compact('employees', 'company_setting', 'periods', 'attendances'))->render();
+
+        $holidays = Holiday::whereYear("date","=",$year)
+                            ->whereMonth("date","=",$month)->get();
+
+        return view('components.attendance_overview_table', compact('employees', 'holidays','company_setting', 'periods', 'attendances'))->render();
     }
 }

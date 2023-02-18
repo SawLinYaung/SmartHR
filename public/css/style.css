@@ -11,14 +11,14 @@ body {
 }
 .btn-theme {
     color: #fff;
-    background-color: #4cd195 !important;
+    background-color: #484c7f !important;
 }
 .btn-theme:hover {
     color: #fff !important;
 }
 
 .text-theme {
-    color: #4cd195;
+    color: #484c7f;
 }
 
 .table td,
@@ -68,6 +68,10 @@ body {
 /* ------------- Sidebar --------------- */
 #show-sidebar {
     font-size: 20px;
+}
+
+.fa-bars{
+    margin-left: 220px;
 }
 
 @keyframes swing {
@@ -211,6 +215,10 @@ body {
     overflow: hidden;
 }
 
+.user-info-container div{
+        float: left;
+}
+
 .sidebar-wrapper .sidebar-header .user-pic {
     float: left;
     width: 60px;
@@ -218,6 +226,11 @@ body {
     border-radius: 12px;
     margin-right: 15px;
     overflow: hidden;
+}
+.user-pic img{
+    width:60px;
+    height: 70px;
+    border-radius: 50%;
 }
 
 .sidebar-wrapper .sidebar-header .user-pic img {
@@ -441,13 +454,13 @@ body {
 /*-----------------------------chiller-theme-------------------------------------------------*/
 
 .chiller-theme .sidebar-wrapper {
-    background: #2d3747;
+    background: #484c7f;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-header,
 .chiller-theme .sidebar-wrapper .sidebar-search,
 .chiller-theme .sidebar-wrapper .sidebar-menu {
-    border-top: 1px solid #2d3747;
+    border-top: 1px solid #484c7f;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
@@ -491,7 +504,7 @@ body {
     a:hover:before,
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu:focus + span,
 .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active a i {
-    color: #4cd195;
+    color: #ffb703;
     text-shadow: 0px 0px 10px rgba(22, 199, 255, 0.5);
 }
 
@@ -522,7 +535,7 @@ body {
 
 /* -------------- Datatable -------------- */
 .pagination .page-item.active .page-link {
-    background: #4cd195 !important;
+    background: #484c7f !important;
 }
 
 table.dataTable > tbody > tr.child ul.dtr-details {
@@ -551,8 +564,9 @@ table.dataTable > tbody > tr.child ul.dtr-details > li {
 }
 
 mark {
-    padding: 0px !important;
-    background: #4cd195;
+    padding: 3px !important;
+    background: #484c7f;
+    color:#fff;
 }
 
 @media screen and (max-width: 767px) {
@@ -770,3 +784,57 @@ mark {
     line-height: 29px;
     font-size: 12px;
 }
+
+/*-------------------Interview------------------------ */
+.avatar{
+    width:100px;
+    height: 100px;
+}  
+.img-container{
+    width: 50%;
+    height: 100%;
+    background-color: darkslateblue;
+    padding: 4rem 1rem;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    animation: myanidown 0.5s ease;
+  }
+  
+  img{
+    width: 100%;
+  }
+
+
+  .chart {
+    width: 100%; 
+    min-height: 450px;
+  }
+  
+  /* ---------------------User Icon------------------- */
+  .user_icon{
+    width:50px;
+    height:50px;
+  }
+
+  /* ------------------ No of Employee Div----------------- */
+  /* container ဆိုပြီး class ထည့်တုံးက */
+  /* @media screen and (min-width:992px) and (max-width:1199px) {
+    .present-late-info,.total-no{
+        min-height: 360px;
+    }
+  } */
+/* container ဆိုပြီး class မထည့်သောအခါ */
+  @media screen and (min-width:992px) and (max-width:1088px) {
+    .present-late-info,.total-no{
+        min-height: 388px;
+    }
+  }
+  @media screen and (min-width:741px) {
+    .present-late-info,.total-no{
+        height:350px;
+    }
+  }
+ 

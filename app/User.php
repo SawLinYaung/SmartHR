@@ -2,8 +2,11 @@
 
 namespace App;
 
+use App\Fine;
+use App\Leave;
 use App\Salary;
 use App\Department;
+use App\Designation;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -46,6 +49,11 @@ class User extends Authenticatable implements WebAuthnAuthenticatable
         return $this->belongsTo(Department::class, 'department_id', 'id');
     }
 
+    public function designation(){
+        return $this->belongsTo(Designation::class, 'designation_id', 'id');
+    }
+
+
     public function profile_img_path(){
         if($this->profile_img){
             return asset('storage/employee/' . $this->profile_img);
@@ -57,4 +65,14 @@ class User extends Authenticatable implements WebAuthnAuthenticatable
     public function salaries(){
         return $this->hasMany(Salary::class, 'user_id', 'id');
     }
+
+    public function fines(){
+        return $this->hasMany(Fine::class, 'user_id', 'id');
+    }
+
+    public function leaves(){
+        return $this->hasMany(Leave::class,'user_id','id');
+    }
+
+    
 }

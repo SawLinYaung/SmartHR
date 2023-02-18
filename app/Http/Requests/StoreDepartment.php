@@ -25,6 +25,7 @@ class StoreDepartment extends FormRequest
     {
         return [
             'title' => 'required',
+            'title' => 'required|unique:departments,title',
         ];
     }
 }

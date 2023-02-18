@@ -1,11 +1,8 @@
 @extends('layouts.app')
-@section('title', 'Attendance')
 @section('content')
 <div>
-    @can('create_attendance')
     <a href="{{route('attendance.create')}}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create
         Attendance</a>
-    @endcan
     <a href="{{url('/attendance-pdf-download')}}" target="_blank" class="btn btn-dark bg-dark text-white btn-sm"><i class="fas fa-file-pdf"></i> PDF Download</a>
 </div>
 <div class="card">

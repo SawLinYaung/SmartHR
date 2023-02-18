@@ -2,31 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\CheckinCheckout;
-use App\CompanySetting;
-use App\Http\Controllers\Controller;
 use App\User;
+use App\Holiday;
 use Carbon\Carbon;
+use App\CompanySetting;
+use App\CheckinCheckout;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PayrollController extends Controller
 {
     public function payroll(Request $request)
     {
-        if (!auth()->user()->can('view_payroll')) {
-            abort(403, 'Unauthorized Action');
-        }
-
-        return view('payroll');
+          return view('payroll');
     }
 
     public function payrollTable(Request $request)
     {
-        if (!auth()->user()->can('view_payroll')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $month = $request->month;
         $year = $request->year;
         $startOfMonth = $year . '-' . $month . '-01';
@@ -37,12 +30,15 @@ class PayrollController extends Controller
             return $date->isWeekday();
         }, Carbon::parse($endOfMonth)->addDays(1));
 
-        $offDays = $daysInMonth - $workingDays;
+        $offDays = $daysInMonth - $workingDays ;
 
         $employees = User::orderBy('employee_id')->where('name', 'like', '%' . $request->employee_name . '%')->get();
         $company_setting = CompanySetting::findOrFail(1);
         $periods = new CarbonPeriod($startOfMonth, $endOfMonth);
         $attendances = CheckinCheckout::whereMonth('date', $month)->whereYear('date', $year)->get();
+
+        $holidays = Holiday::whereMonth('date',$month)->whereYear('date',$year)->get();
+        $holidays_count = $holidays->count();
         return view('components.payroll_table', compact('employees', 'company_setting', 'periods', 'attendances', 'daysInMonth', 'workingDays', 'offDays', 'month', 'year'))->render();
     }
 }

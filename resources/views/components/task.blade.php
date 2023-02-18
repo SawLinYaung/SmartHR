@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-4">
         <div class="card">
-            <div class="card-header bg-warning text-white"><i class="fas fa-tasks"></i> Pending</div>
+            <div class="card-header text-white" style="background:#ff2233"><i class="fas fa-tasks"></i> Pending</div>
             <div class="card-body alert-warning">
                 <div id="pendingTaskBoard">
                     @foreach (collect($project->tasks)->sortBy('serial_number')->where('status', 'pending') as $task)
@@ -47,7 +47,7 @@
     </div>
     <div class="col-md-4">
         <div class="card">
-            <div class="card-header bg-info text-white"><i class="fas fa-tasks"></i> In Progress</div>
+            <div class="card-header bg-info text-white"><i class="fa-solid fa-spinner"></i> In Progress</div>
             <div class="card-body alert-info">
 
                 <div id="inProgressTaskBoard">
@@ -95,7 +95,7 @@
     </div>
     <div class="col-md-4">
         <div class="card">
-            <div class="card-header bg-success text-white"><i class="fas fa-tasks"></i> Complete</div>
+            <div class="card-header bg-success text-white"><i class="fa-solid fa-circle-check"></i> Complete</div>
             <div class="card-body alert-success">
 
                 <div id="completeTaskBoard">

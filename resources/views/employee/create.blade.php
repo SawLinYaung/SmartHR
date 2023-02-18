@@ -1,14 +1,15 @@
 @extends('layouts.app')
-@section('title', 'Create Employee')
+@section('title','Create Employee')
+
 @section('content')
-<div class="card">
-    <div class="card-body">
+   <div class="card px-2">
+        <div class="card-body">
         <form action="{{route('employee.store')}}" method="POST" autocomplete="off" enctype="multipart/form-data" id="create-form">
             @csrf
 
             <div class="md-form">
                 <label for="">Employee ID</label>
-                <input type="text" name="employee_id" class="form-control">
+                <input type="text" name="employee_id" class="form-control" value="Smart-{{$user_id}}" readonly>
             </div>
 
             <div class="md-form">
@@ -34,8 +35,8 @@
             <div class="form-group">
                 <label for="">Gender</label>
                 <select name="gender" class="form-control">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
+                    <option value="0">Male</option>
+                    <option value="1">Female</option>
                 </select>
             </div>
 
@@ -59,14 +60,14 @@
             </div>
 
             <div class="form-group">
-                <label for="">Role (or) Designation</label>
-                <select name="roles[]" class="form-control select-ninja" multiple>
-                    @foreach ($roles as $role)
-                    <option value="{{$role->name}}">{{$role->name}}</option>
+                <label for="">Designation</label>
+                <select name="designation_id" class="form-control">
+                    @foreach ($designations as $designation)
+                        <option value="{{$designation->id}}">{{$designation->title}}</option>
                     @endforeach
                 </select>
             </div>
-
+           
             <div class="md-form">
                 <label for="">Date of Join</label>
                 <input type="text" name="date_of_join" class="form-control date_of_join">
@@ -83,20 +84,9 @@
             <div class="form-group">
                 <label for="profile_img">Profile Image</label>
                 <input type="file" name="profile_img" class="form-control p-1" id="profile_img">
-
                 <div class="preview_img my-2">
 
                 </div>
-            </div>
-
-            <div class="md-form">
-                <label for="">Pin Code</label>
-                <input type="number" name="pin_code" class="form-control">
-            </div>
-
-            <div class="md-form">
-                <label for="">Password</label>
-                <input type="password" name="password" class="form-control">
             </div>
 
             <div class="d-flex justify-content-center mt-5 mb-3">
@@ -105,40 +95,41 @@
                 </div>
             </div>
         </form>
-    </div>
-</div>
+        </div>
+   </div>
 @endsection
-@section('script')
-{!!JsValidator::formRequest('App\Http\Requests\StoreEmployee', '#create-form');!!}
 
+@section('script')
+{!!$validator = JsValidator::formRequest('App\Http\Requests\StoreEmployee', '#create-form');!!}
 <script>
     $(document).ready(function(){
-            $('.birthday').daterangepicker({
-                "singleDatePicker": true,
-                "autoApply": true,
-                "showDropdowns": true,
-                "maxDate": moment(),
-                "locale": {
-                    "format": "YYYY-MM-DD",
-                }
-            });
-
-            $('.date_of_join').daterangepicker({
-                "singleDatePicker": true,
-                "autoApply": true,
-                "showDropdowns": true,
-                "locale": {
-                    "format": "YYYY-MM-DD",
-                }
-            });
-
-            $('#profile_img').on('change', function(){
-                var file_length = document.getElementById('profile_img').files.length;
-                $('.preview_img').html('');
-                for(var i = 0; i < file_length; i++){
-                    $('.preview_img').append(`<img src="${URL.createObjectURL(event.target.files[i])}"/>`);
-                }
-            });
-    });
+        $('.birthday').daterangepicker({
+            "autoApply": true,
+            "showDropdowns": true,
+            "maxDate" :moment(),//current date = moment();
+            "singleDatePicker": true,
+            "locale": {
+                "format": "YYYY/MM/DD",
+            }
+        });
+        $('.date_of_join').daterangepicker({
+            "autoApply": true,
+            "showDropdowns": true,
+            "singleDatePicker": true,
+            "locale": {
+                "format": "YYYY/MM/DD",
+            }
+        });
+       
+        $('#profile_img').on('change', function(){
+            console.log('changed');
+            var file_length = document.getElementById('profile_img').files.length;
+            //ကိုယ်ဘယ်နှဖိုင်ရွေးထားလဲ သိအောင်လို့။
+            $('.preview_img').html('');
+            for(var i = 0; i < file_length; i++){
+                $('.preview_img').append(`<img src="${URL.createObjectURL(event.target.files[i])}"/>`);
+            }
+        });    
+    })
 </script>
 @endsection

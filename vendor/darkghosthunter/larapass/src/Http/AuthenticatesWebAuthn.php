@@ -37,7 +37,7 @@ trait AuthenticatesWebAuthn
     protected function optionRules(): array
     {
         return [
-            $this->username() => 'required',
+            $this->username() => 'sometimes|email',
         ];
     }
 
@@ -48,7 +48,7 @@ trait AuthenticatesWebAuthn
      */
     protected function username(): string
     {
-        return 'phone';
+        return 'email';
     }
 
     /**

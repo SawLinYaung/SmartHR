@@ -8,14 +8,13 @@ use App\CompanySetting;
 use App\CheckinCheckout;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
 class MyPayrollController extends Controller
 {
-    public function ssd(Request $request)
+    public function payroll(Request $request)
     {
-        return view('payroll');
+          return view('mypayroll');
     }
 
     public function payrollTable(Request $request)
@@ -36,6 +35,6 @@ class MyPayrollController extends Controller
         $company_setting = CompanySetting::findOrFail(1);
         $periods = new CarbonPeriod($startOfMonth, $endOfMonth);
         $attendances = CheckinCheckout::whereMonth('date', $month)->whereYear('date', $year)->get();
-        return view('components.payroll_table', compact('employees', 'company_setting', 'periods', 'attendances', 'daysInMonth', 'workingDays', 'offDays', 'month', 'year'))->render();
+        return view('components.mypayroll_table', compact('employees', 'company_setting', 'periods', 'attendances', 'daysInMonth', 'workingDays', 'offDays', 'month', 'year'))->render();
     }
 }

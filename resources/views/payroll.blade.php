@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@section('title', 'Payroll')
 @section('content')
 <div class="card">
     <div class="card-body">
@@ -9,7 +8,7 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <select name="" class="form-control select-month">
+                    <select name="month" class="form-control select-month">
                         <option value="">-- Please Choose (Month) --</option>
                         <option value="01" @if(now()->format('m') == '01') selected @endif>Jan</option>
                         <option value="02" @if(now()->format('m') == '02') selected @endif>Feb</option>
@@ -28,7 +27,7 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <select name="" class="form-control select-year">
+                    <select name="year" class="form-control select-year">
                         <option value="">-- Please Choose (Year) --</option>
                         @for ($i = 0; $i < 5; $i++)
                         <option value="{{now()->subYears($i)->format('Y')}}" @if(now()->format('Y') == now()->subYears($i)->format('Y')) selected @endif>

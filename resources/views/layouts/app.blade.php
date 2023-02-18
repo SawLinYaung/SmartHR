@@ -9,8 +9,8 @@
     <title>@yield('title')</title>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
 
@@ -32,7 +32,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.1/viewer.min.css">
 
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
-
     @yield('extra_css')
 </head>
 
@@ -40,196 +39,305 @@
     <div class="page-wrapper chiller-theme">
         <nav id="sidebar" class="sidebar-wrapper">
             <div class="sidebar-content">
-                <div class="sidebar-brand">
-                    <a href="#">Ninja HR</a>
-                    <div id="close-sidebar">
-                        <i class="fas fa-times"></i>
-                    </div>
+            <div class="sidebar-brand">
+                <a href="/">Smart HR</a>
+                <div id="close-sidebar">
+                    <i class="fas fa-times"></i>
                 </div>
-                <div class="sidebar-header">
-                    <div class="user-pic">
-                        <img class="img-responsive img-rounded"
-                            src="{{auth()->user()->profile_img_path()}}"
-                            alt="">
-                    </div>
-                    <div class="user-info">
-                        <span class="user-name">{{auth()->user()->name}}</span>
-                        <span class="user-role">{{auth()->user()->department ? auth()->user()->department->title : 'No Department'}}</span>
-                        <span class="user-status">
-                            <i class="fa fa-circle"></i>
-                            <span>Online</span>
-                        </span>
-                    </div>
+            </div>
+            <div class="sidebar-header">
+                <div class="user-pic">
+                    <img class="img-responsive img-rounded" 
+                    src="{{auth()->user()->profile_img_path()}}"
+                    alt="User picture">
                 </div>
-                <!-- sidebar-header  -->
+                <div class="user-info">
+                    <span class="user-name">{{auth()->user()->name}}</span>
+                </span>
+                <span class="user-role">
+                    @php
+                    $des_id = auth()->user()->designation_id;
+                    $des_title = \App\Designation::where(['id' => $des_id])->first();
+                    if($des_title == null){
+                        $des_title ='';
+                    }
+                    @endphp
 
-                <div class="sidebar-menu">
+                    {{$des_title->title}}
+                </span> 
+                <!-- ပြင်ရန် -->
+                <span class="user-status">
+                    <i class="fa fa-circle"></i>
+                    <span>Online</span>
+                </span>
+                </div>
+            </div>
+            <!-- sidebar-header  -->
+            <div class="sidebar-menu">
+                <ul>
+                <li class="header-menu">
+                    <span>General</span>
+                </li>
+                <li>
+                    <a href="/">
+                    <i class="fa fa-home"></i>
+                    <span>Home</span>
+                    </a>
+                </li>
+
+                @if($des_id == 1)
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Employees</span>
+                    </a>
+                    <div class="sidebar-submenu">
                     <ul>
-                        <li class="header-menu">
-                            <span>Menu</span>
+                        <li>
+                        <a href="{{route('employee.create')}}">Add Employee Information
+                        </a>
                         </li>
                         <li>
-                            <a href="/">
-                                <i class="fas fa-home"></i>
-                                <span>Home</span>
-                            </a>
+                        <a href="{{route('employee.index')}}">View Employee Information</a>
                         </li>
-                        @can('view_company_setting')
                         <li>
-                            <a href="{{route('company-setting.show', 1)}}">
-                                <i class="fas fa-building"></i>
-                                <span>Company Setting</span>
-                            </a>
+                        <a href="{{route('department.create')}}">Add Department</a>
                         </li>
-                        @endcan
-
-                        @can('view_employee')
                         <li>
-                            <a href="{{route('employee.index')}}">
-                                <i class="fas fa-users"></i>
-                                <span>Employees</span>
-                            </a>
+                        <a href="{{route('department.index')}}">View Department</a>
                         </li>
-                        @endcan
-
-                        @can('view_salary')
                         <li>
-                            <a href="{{route('salary.index')}}">
-                                <i class="fas fa-money-bill"></i>
-                                <span>Salary</span>
-                            </a>
+                        <a href="{{route('designation.create')}}">Add Designation</a>
                         </li>
-                        @endcan
-
-                        @can('view_department')
                         <li>
-                            <a href="{{route('department.index')}}">
-                                <i class="fas fa-sitemap"></i>
-                                <span>Department</span>
-                            </a>
+                        <a href="{{route('designation.index')}}">View Designation</a>
                         </li>
-                        @endcan
-
-                        @can('view_role')
                         <li>
-                            <a href="{{route('role.index')}}">
-                                <i class="fas fa-user-shield"></i>
-                                <span>Role</span>
-                            </a>
+                        <a href="{{route('salary.create')}}">Add Salary</a>
                         </li>
-                        @endcan
-
-                        @can('view_permission')
                         <li>
-                            <a href="{{route('permission.index')}}">
-                                <i class="fas fa-shield-alt"></i>
-                                <span>Permission</span>
-                            </a>
+                        <a href="{{route('salary.index')}}">View Salary</a>
                         </li>
-                        @endcan
-
-                        @can('view_project')
-                        <li>
-                            <a href="{{route('project.index')}}">
-                                <i class="fas fa-toolbox"></i>
-                                <span>Project</span>
-                            </a>
-                        </li>
-                        @endcan
-
-                        @can('view_attendance')
-                        <li>
-                            <a href="{{route('attendance.index')}}">
-                                <i class="fas fa-calendar-check"></i>
-                                <span>Attendance (Employee)</span>
-                            </a>
-                        </li>
-                        @endcan
-
-                        @can('view_attendance_overview')
-                        <li>
-                            <a href="{{route('attendance.overview')}}">
-                                <i class="fas fa-calendar-check"></i>
-                                <span>Attendance (Overview)</span>
-                            </a>
-                        </li>
-                        @endcan
-
-                        @can('view_payroll')
-                        <li>
-                            <a href="{{route('payroll')}}">
-                                <i class="fas fa-money-check"></i>
-                                <span>Payroll</span>
-                            </a>
-                        </li>
-                        @endcan
-
-                        {{-- <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-globe"></i>
-                                <span>Maps</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">Google maps</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Open street map</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li> --}}
                     </ul>
-                </div>
-                <!-- sidebar-menu  -->
+                    </div>
+                </li>                
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                    <i class="fa-solid fa-comment"></i>
+                        <span>Interview</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                        <a href="#">Add Interview
+                        </a>
+                        </li>
+                        <li>
+                        <a href="#">View Interview</a>
+                        </li>
+                    </ul>
+                    </div>
+                </li>
+                @endif
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                        <i class="fa-sharp fa-solid fa-briefcase"></i>
+                        <span>Project</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                    <ul>
+                        @if($des_id == 1)
+                        <li>
+                        <a href="{{route('project.create')}}">Add Project Information
+                        </a>
+                        </li>
+                        <li>
+                        <a href="{{route('project.index')}}">View All Project</a>
+                        </li>
+                        @endif
+                        <li>
+                        <a href="{{route('my-project.index')}}">View My Projects</a>
+                        </li>
+                    </ul>
+                    </div>
+                </li>
+                @if($des_id == 1)
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                        <i class="fa-solid fa-check"></i>                                                                    
+                        <span>Attendance</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                            <a href="{{route('attendance.index')}}">View Attendance
+                        </a>
+                        </li>
+                        <li>
+                            <a href="{{route('attendance-scan')}}">Scan Attendance</a>
+                        </li>
+                        <li>
+                            <a href="{{route('leave.create')}}">Add Leave</a>
+                        </li>
+                        <li>
+                            <a href="{{route('leave.index')}}">View Leave</a>
+                        </li>
+                        
+                    </ul>
+                    </div>
+                </li>
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                        <i class="fa-solid fa-umbrella-beach"></i>
+                        <span>Holiday</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                    <ul>                        
+                        <li>
+                            <a href="{{route('holiday.create')}}">Add Holiday</a>
+                        </li>
+                        <li>
+                            <a href="{{route('holiday.index')}}">View Holiday</a>
+                        </li>                                             
+                    </ul>
+                    </div>
+                </li>
+                @endif
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                        <i class="fa-solid fa-check"></i>                                                                    
+                        <span>Payroll</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                    <ul>
+                        @if($des_id == 1)
+                        <li>
+                            <a href="{{route('payroll')}}">View Payroll
+                        </a>
+                        @endif
+                        </li>
+                        <li>
+                            <a href="{{route('my-payroll')}}">My Payroll</a>
+                        </li>                        
+                    </ul>
+                    </div>
+                </li>
+                @if($des_id == 1)
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                        <i class="fa-solid fa-money-bill"></i>
+                        <span>Expense</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                        <a href="#">Add Expense
+                        </a>
+                        </li>
+                        <li>
+                        <a href="#">View Expense</a>
+                        </li>
+                        <li>
+                        <a href="#">Add Expense Category</a>
+                        </li>
+                        <li>
+                        <a href="#">View Expense Category</a>
+                        </li>
+                    </ul>
+                    </div>
+                </li>
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                    <i class="fa-solid fa-chart-gantt"></i>                     
+                        <span>Report</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                        <a href="#">Finanical Report
+                        </a>
+                        </li>
+                        <li>
+                        <a href="#">Project Report</a>
+                        </li>
+                        <li>
+                        <a href="#">Attendance Report</a>
+                        </li>
+                    </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="{{route('company-setting.show', 1)}}">
+                    <i class="fa-solid fa-gear"></i>                    
+                    <span>Company Setting</span>
+                    </a>
+                </li>
+                @endif
+                <li>
+                    <a href="{{route('logout')}}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>                   
+                    <span>Logout</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                
+
+                </ul>
+            </div>
+            <!-- sidebar-menu  -->
             </div>
             <!-- sidebar-content  -->
+        
         </nav>
-
-        <div class="app-bar">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-10">
-                    <div class="d-flex justify-content-between align-content-center">
-                        @if(request()->is('/'))
-                        <a href="#" id="show-sidebar"><i class="fas fa-bars"></i></a>
-                        @else
-                        <a href="#" id="back-btn"><i class="fas fa-chevron-left"></i></a>
-                        @endif
-                        <h5 class="mb-0">@yield('title')</h5>
-                        <a href=""></a>
+        <div class="app-bar" style="min-height:100px;">
+            <div class="d-flex">
+                <div class="">
+                    <div class="d-flex justify-content-between align-items-center py-3">
+                        <a href="#" id="show-sidebar">
+                            <i class="fas fa-bars"></i>
+                        </a> 
+                        <a href=""></a>  
+                        <a href=""></a> 
+                        <div id="about-user" style="position:absolute;top:0;right:10px;padding-top:15px">
+                            <div class="user-info-container bg-primary">
+                                <div class="user-pic mx-2">
+                                    <img 
+                                    src="{{auth()->user()->profile_img_path()}}"
+                                     alt="wrong photo" id="user-img">
+                                </div>
+                                <div id="user-info mx-2 bg-danger">
+                                    <span class="fw-bold">{{auth()->user()->name}}</span><br/>
+                                    <small>{{$des_title->title}}</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
         <div class="py-4 content">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-10">
+            <div class="d-flex">
+                <div class="col-lg-12 col-md-12 col-sm-12">
                     @yield('content')
-                </div>
-            </div>
-        </div>
-        <div class="bottom-bar">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-10">
-                    <div class="d-flex justify-content-between">
-                        <a href="{{route('home')}}">
-                            <i class="fas fa-home"></i>
-                            <p class="mb-0">Home</p>
-                        </a>
-                        <a href="{{route('attendance-scan')}}">
-                            <i class="fas fa-user-clock"></i>
-                            <p class="mb-0">Attendance</p>
-                        </a>
-                        <a href="{{route('my-project.index')}}">
-                            <i class="fas fa-briefcase"></i>
-                            <p class="mb-0">Project</p>
-                        </a>
-                        <a href="{{route('profile.profile')}}">
-                            <i class="fas fa-user"></i>
-                            <p class="mb-0">Profile</p>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -281,8 +389,12 @@
 
     <script src="{{ asset('vendor/larapass/js/larapass.js') }}"></script>
 
+    <!-- View JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.1/viewer.min.js"></script>
 
+     <!--Load the AJAX API-->
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+     
     <script>
         const Toast = Swal.mixin({
             toast: true,

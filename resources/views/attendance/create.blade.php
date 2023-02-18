@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@section('title', 'Create Attendance')
 @section('extra_css')
 <style>
     .daterangepicker .drp-calendar.left {

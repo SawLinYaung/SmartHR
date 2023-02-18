@@ -35,7 +35,7 @@
         <div class="card mb-3">
             <div class="card-body">
                 <h4>{{$project->title}}</h4>
-                <p class="mb-1">Start Date : <span class="text-muted">{{$project->start_date}}</span> , Deadline : <span
+                <p class="mb-1">Start Date : <span class="text-muted">{{$project->start_date}}</span>  Deadline : <span
                         class="text-muted">{{$project->deadline}}</span></p>
                 <p class="mb-4">
                     Priority :
@@ -265,7 +265,7 @@
 
                     <div class="form-group text-left">
                         <label for="">Member</label>
-                        <select name="members[]" class="form-control select-ninja" multiple>
+                        <select name="members[]" class="form-control select-smart" multiple>
                             <option value="">-- Please Choose --</option>
                             ${task_members_options}
                         </select>
@@ -273,7 +273,7 @@
 
                     <div class="form-group text-left">
                         <label for="">Priority</label>
-                        <select name="priority" class="form-control select-ninja">
+                        <select name="priority" class="form-control select-smart">
                             <option value="">-- Please Choose --</option>
                             <option value="high">High</option>
                             <option value="middle">Middle</option>
@@ -307,7 +307,7 @@
                 }
             });
 
-            $('.select-ninja').select2({
+            $('.select-smart').select2({
                 placeholder: '-- Please Choose --',
                 allowClear: true,
                 theme: 'bootstrap4'
@@ -354,7 +354,7 @@
 
                     <div class="form-group text-left">
                         <label for="">Member</label>
-                        <select name="members[]" class="form-control select-ninja" multiple>
+                        <select name="members[]" class="form-control select-smart" multiple>
                             <option value="">-- Please Choose --</option>
                             ${task_members_options}
                         </select>
@@ -362,7 +362,7 @@
 
                     <div class="form-group text-left">
                         <label for="">Priority</label>
-                        <select name="priority" class="form-control select-ninja">
+                        <select name="priority" class="form-control select-smart">
                             <option value="">-- Please Choose --</option>
                             <option value="high">High</option>
                             <option value="middle">Middle</option>
@@ -396,7 +396,7 @@
                 }
             });
 
-            $('.select-ninja').select2({
+            $('.select-smart').select2({
                 placeholder: '-- Please Choose --',
                 allowClear: true,
                 theme: 'bootstrap4'
@@ -443,7 +443,7 @@
 
                     <div class="form-group text-left">
                         <label for="">Member</label>
-                        <select name="members[]" class="form-control select-ninja" multiple>
+                        <select name="members[]" class="form-control select-smart" multiple>
                             <option value="">-- Please Choose --</option>
                             ${task_members_options}
                         </select>
@@ -451,7 +451,7 @@
 
                     <div class="form-group text-left">
                         <label for="">Priority</label>
-                        <select name="priority" class="form-control select-ninja">
+                        <select name="priority" class="form-control select-smart">
                             <option value="">-- Please Choose --</option>
                             <option value="high">High</option>
                             <option value="middle">Middle</option>
@@ -485,7 +485,7 @@
                 }
             });
 
-            $('.select-ninja').select2({
+            $('.select-smart').select2({
                 placeholder: '-- Please Choose --',
                 allowClear: true,
                 theme: 'bootstrap4'
@@ -534,7 +534,7 @@
 
                     <div class="form-group text-left">
                         <label for="">Member</label>
-                        <select name="members[]" class="form-control select-ninja" multiple>
+                        <select name="members[]" class="form-control select-smart" multiple>
                             <option value="">-- Please Choose --</option>
                             ${task_members_options}
                         </select>
@@ -542,7 +542,7 @@
 
                     <div class="form-group text-left">
                         <label for="">Priority</label>
-                        <select name="priority" class="form-control select-ninja">
+                        <select name="priority" class="form-control select-smart">
                             <option value="">-- Please Choose --</option>
                             <option value="high" ${(task.priority == 'high' ? 'selected' : '')}>High</option>
                             <option value="middle" ${(task.priority == 'middle' ? 'selected' : '')}>Middle</option>
@@ -576,7 +576,7 @@
                 }
             });
 
-            $('.select-ninja').select2({
+            $('.select-smart').select2({
                 placeholder: '-- Please Choose --',
                 allowClear: true,
                 theme: 'bootstrap4'

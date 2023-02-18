@@ -26,8 +26,8 @@ class StoreEmployee extends FormRequest
         return [
             'employee_id' => 'required|unique:users,employee_id',
             'name' => 'required',
-            'phone' => 'required|min:9|max:11|unique:users,phone',
-            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|min:9|max:11',
+            'email' => 'required',
             'nrc_number' => 'required',
             'gender' => 'required',
             'birthday' => 'required',
@@ -35,9 +35,7 @@ class StoreEmployee extends FormRequest
             'department_id' => 'required',
             'date_of_join' => 'required',
             'is_present' => 'required',
-            'pin_code' => 'required|min:6|max:6',
-            'pin_code' => 'required|min:6|max:6|unique:users,pin_code',
             'password' => 'required',
-        ];
+        ];    
     }
 }

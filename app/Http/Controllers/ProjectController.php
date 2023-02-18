@@ -18,19 +18,11 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        if (!auth()->user()->can('view_project')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         return view('project.index');
     }
 
     public function ssd(Request $request)
     {
-        if (!auth()->user()->can('view_project')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $projects = Project::with('leaders', 'members');
 
         return Datatables::of($projects)
@@ -76,18 +68,9 @@ class ProjectController extends Controller
                 $edit_icon = '';
                 $delete_icon = '';
 
-                if (auth()->user()->can('view_project')) {
                     $info_icon = '<a href="' . route('project.show', $each->id) . '" class="text-primary"><i class="fas fa-info-circle"></i></a>';
-                }
-
-                if (auth()->user()->can('edit_project')) {
                     $edit_icon = '<a href="' . route('project.edit', $each->id) . '" class="text-warning"><i class="far fa-edit"></i></a>';
-                }
-
-                if (auth()->user()->can('delete_project')) {
                     $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '"><i class="fas fa-trash-alt"></i></a>';
-                }
-
                 return '<div class="action-icon">' . $info_icon . $edit_icon . $delete_icon . '</div>';
             })
             ->addColumn('plus-icon', function ($each) {
@@ -99,20 +82,12 @@ class ProjectController extends Controller
 
     public function create()
     {
-        if (!auth()->user()->can('create_project')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $employees = User::orderBy('name')->get();
         return view('project.create', compact('employees'));
     }
 
     public function store(StoreProject $request)
     {
-        if (!auth()->user()->can('create_project')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $image_names = null;
         if ($request->hasFile('images')) {
             $image_names = [];
@@ -154,10 +129,6 @@ class ProjectController extends Controller
 
     public function edit($id)
     {
-        if (!auth()->user()->can('edit_project')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $project = Project::findOrFail($id);
         $employees = User::orderBy('name')->get();
         return view('project.edit', compact('project', 'employees'));
@@ -165,10 +136,6 @@ class ProjectController extends Controller
 
     public function update($id, UpdateProject $request)
     {
-        if (!auth()->user()->can('edit_project')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $project = Project::findOrFail($id);
 
         $image_names = $project->images;
@@ -211,20 +178,12 @@ class ProjectController extends Controller
 
     public function show($id)
     {
-        if (!auth()->user()->can('view_project')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $project = Project::findOrFail($id);
         return view('project.show', compact('project'));
     }
 
     public function destroy($id)
     {
-        if (!auth()->user()->can('delete_project')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $project = Project::findOrFail($id);
 
         $project->leaders()->detach();

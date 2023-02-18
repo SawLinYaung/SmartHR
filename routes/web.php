@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['register' => false]);
 
+Route::get('/forgot-password', function () {
+    return view('auth.passwords.email');
+})->middleware('guest')->name('password.request');
+
 Route::get('/login-option', 'Auth\LoginController@loginOption')->name("login-option");
 
 Route::post('webauthn/register/options', [WebAuthnRegisterController::class, 'options'])
@@ -24,8 +28,8 @@ Route::post('webauthn/login/options', [WebAuthnLoginController::class, 'options'
 Route::post('webauthn/login', [WebAuthnLoginController::class, 'login'])
     ->name('webauthn.login');
 
-Route::get('checkin-checkout', 'CheckinCheckoutController@checkInCheckOut');
 Route::post('checkin-checkout/store', 'CheckinCheckoutController@checkInCheckOutStore');
+Route::get('checkin-checkout', 'CheckinCheckoutController@checkInCheckOut');
 
 Route::middleware('auth')->group(function () {
 
@@ -41,14 +45,21 @@ Route::middleware('auth')->group(function () {
     Route::resource('department', 'DepartmentController');
     Route::get('department/datatable/ssd', 'DepartmentController@ssd');
 
-    Route::resource('role', 'RoleController');
-    Route::get('role/datatable/ssd', 'RoleController@ssd');
+    Route::resource('designation', 'DesignationController');
+    Route::get('designation/datatable/ssd', 'DesignationController@ssd');
 
-    Route::resource('permission', 'PermissionController');
-    Route::get('permission/datatable/ssd', 'PermissionController@ssd');
+    Route::resource('holiday', 'HolidayController');
+    Route::get('holiday/datatable/ssd', 'HolidayController@ssd');
+
+    Route::resource('salary', 'SalaryController');
+    Route::get('salary/datatable/ssd', 'SalaryController@ssd');
 
     Route::resource('company-setting', 'CompanySettingController')->only(['edit', 'update', 'show']);
+    Route::resource('leave', 'LeaveController');
+    Route::get('leave/datatable/ssd', 'LeaveController@ssd');
+    Route::get('leave-overview', 'LeaveController@overview')->name('leave.overview');
 
+    
     Route::resource('attendance', 'AttendanceController');
     Route::get('attendance/datatable/ssd', 'AttendanceController@ssd');
     Route::get('attendance-overview', 'AttendanceController@overview')->name('attendance.overview');
@@ -60,12 +71,9 @@ Route::middleware('auth')->group(function () {
     Route::get('my-attendance/datatable/ssd', 'MyAttendanceController@ssd');
     Route::get('my-attendance-overview-table', 'MyAttendanceController@overviewTable');
 
-    Route::resource('salary', 'SalaryController');
-    Route::get('salary/datatable/ssd', 'SalaryController@ssd');
-
     Route::get('payroll', 'PayrollController@payroll')->name('payroll');
     Route::get('payroll-table', 'PayrollController@payrollTable');
-    Route::get('my-payroll', 'MyPayrollController@ssd');
+    Route::get('my-payroll', 'MyPayrollController@payroll')->name('my-payroll');
     Route::get('my-payroll-table', 'MyPayrollController@payrollTable');
 
     Route::resource('project', 'ProjectController');
@@ -76,4 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('task', 'TaskController');
     Route::get('task-data', 'TaskController@taskData');
     Route::get('task-draggable', 'TaskController@taskDraggable');
+
+    Route::post('full-calender/action', [FullCalenderController::class, 'action']);    
+
 });

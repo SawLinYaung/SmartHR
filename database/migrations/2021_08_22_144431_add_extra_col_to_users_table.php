@@ -18,7 +18,7 @@ class AddExtraColToUsersTable extends Migration
             $table->string('phone')->unique()->nullable();
             $table->string('nrc_number')->nullable();
             $table->date('birthday')->nullable();
-            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->enum('gender', ['1', '0'])->nullable();
             $table->text('address')->nullable();
             $table->bigInteger('department_id')->nullable();
             $table->date('date_of_join')->nullable();

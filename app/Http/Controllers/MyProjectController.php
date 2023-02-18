@@ -66,12 +66,8 @@ class MyProjectController extends Controller
             })
             ->addColumn('action', function ($each) {
                 $info_icon = '';
-
-                if (auth()->user()->can('view_project')) {
                     $info_icon = '<a href="' . route('my-project.show', $each->id) . '" class="text-primary"><i class="fas fa-info-circle"></i></a>';
-                }
-
-                return '<div class="action-icon">' . $info_icon . '</div>';
+                    return '<div class="action-icon">' . $info_icon . '</div>';
             })
             ->addColumn('plus-icon', function ($each) {
                 return null;

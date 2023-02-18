@@ -15,19 +15,11 @@ class SalaryController extends Controller
 {
     public function index()
     {
-        if (!auth()->user()->can('view_salary')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         return view('salary.index');
     }
 
     public function ssd(Request $request)
     {
-        if (!auth()->user()->can('view_salary')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $salaries = Salary::with('employee');
 
         return Datatables::of($salaries)
@@ -49,14 +41,10 @@ class SalaryController extends Controller
                 $edit_icon = '';
                 $delete_icon = '';
 
-                if (auth()->user()->can('edit_salary')) {
                     $edit_icon = '<a href="' . route('salary.edit', $each->id) . '" class="text-warning"><i class="far fa-edit"></i></a>';
-                }
-
-                if (auth()->user()->can('delete_salary')) {
+                
                     $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '"><i class="fas fa-trash-alt"></i></a>';
-                }
-
+                
                 return '<div class="action-icon">' . $edit_icon . $delete_icon . '</div>';
             })
             ->addColumn('plus-icon', function ($each) {
@@ -68,20 +56,12 @@ class SalaryController extends Controller
 
     public function create()
     {
-        if (!auth()->user()->can('create_salary')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $employees = User::orderBy("employee_id")->get();
         return view('salary.create', compact('employees'));
     }
 
     public function store(StoreSalary $request)
     {
-        if (!auth()->user()->can('create_salary')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $salary = new Salary();
         $salary->user_id = $request->user_id;
         $salary->month = $request->month;
@@ -94,10 +74,6 @@ class SalaryController extends Controller
 
     public function edit($id)
     {
-        if (!auth()->user()->can('edit_salary')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $salary = Salary::findOrFail($id);
         $employees = User::orderBy("employee_id")->get();
         return view('salary.edit', compact('salary', 'employees'));
@@ -105,10 +81,6 @@ class SalaryController extends Controller
 
     public function update($id, UpdateSalary $request)
     {
-        if (!auth()->user()->can('edit_salary')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $salary = Salary::findOrFail($id);
         $salary->user_id = $request->user_id;
         $salary->month = $request->month;
@@ -121,10 +93,6 @@ class SalaryController extends Controller
 
     public function destroy($id)
     {
-        if (!auth()->user()->can('delete_salary')) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $salary = Salary::findOrFail($id);
         $salary->delete();
 

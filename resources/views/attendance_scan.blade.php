@@ -4,7 +4,7 @@
 <div class="card mb-3">
     <div class="card-body text-center">
         <img src="{{asset('image/scan.png')}}" alt="" style="width:250px;">
-        <p class="text-muted mb-1">Please Scan Attendance QR</p>
+        <p class="text-muted mb-1">Please Scan Attendance QR </p>
 
         <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#scanModal">
             Scan
